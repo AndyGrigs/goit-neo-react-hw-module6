@@ -1,40 +1,57 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { nanoid } from 'nanoid';
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { nanoid } from "nanoid";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact, selectContacts } from "../store/contactsSlice";
 
 const validationSchema = Yup.object({
   name: Yup.string()
-    .min(3, 'Name must be at least 3 characters')
-    .max(50, 'Name must be less than 50 characters')
-    .required('Name is required'),
+    .min(3, "Name must be at least 3 characters")
+    .max(50, "Name must be less than 50 characters")
+    .required("Name is required"),
   number: Yup.string()
-    .min(3, 'Number must be at least 3 characters')
-    .max(50, 'Number must be less than 50 characters')
-    .required('Number is required'),
+    .min(3, "Number must be at least 3 characters")
+    .max(50, "Number must be less than 50 characters")
+    .required("Number is required"),
 });
 
-const ContactForm = ({ onAddContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = (useSelector = useSelector(selectContacts));
+
   return (
     <div className="mb-8 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4 text-gray-800">Add Contact</h2>
       <Formik
-        initialValues={{ name: '', number: '' }}
+        initialValues={{ name: "", number: "" }}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
+          const exists = contacts.some(
+            (contact) =>
+              contact.name.toLowerCase() === values.name.toLowerCase()
+          );
+          if (exists) {
+            alert(`${values.name} already exists in ypour contacts!`);
+            return;
+          }
+
           const newContact = {
             id: nanoid(),
             name: values.name.trim(),
             number: values.number.trim(),
           };
-          onAddContact(newContact);
+          dispatch(addContact(newContact));
           resetForm();
         }}
       >
         {({ isSubmitting }) => (
           <Form className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Name
               </label>
               <Field
@@ -52,7 +69,10 @@ const ContactForm = ({ onAddContact }) => {
             </div>
 
             <div>
-              <label htmlFor="number" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="number"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Number
               </label>
               <Field
