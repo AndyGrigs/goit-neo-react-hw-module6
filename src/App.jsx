@@ -12,11 +12,12 @@ function App() {
   const filter = useSelector(selectFilter);
 
   const getFilteredContacts = () => {
-    const normFilter = filter.toLowerCase();
-    return contacts.filter((contact) => {
-      contact.name.toLowerCase().includes(normFilter);
-    });
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
   };
+
   const filteredContacts = getFilteredContacts();
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6">

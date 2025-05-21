@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = (useSelector = useSelector(selectContacts));
+  const contacts = useSelector(selectContacts);
 
   return (
     <div className="mb-8 p-6 bg-white rounded-lg shadow-md">
@@ -26,13 +26,13 @@ const ContactForm = () => {
       <Formik
         initialValues={{ name: "", number: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, { resetForm }) => {
-          const exists = contacts.some(
-            (contact) =>
-              contact.name.toLowerCase() === values.name.toLowerCase()
+            onSubmit={(values, { resetForm }) => {
+          const isExisting = contacts.some(
+            (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
           );
-          if (exists) {
-            alert(`${values.name} already exists in ypour contacts!`);
+
+          if (isExisting) {
+            alert(`${values.name} is already in contacts.`);
             return;
           }
 
@@ -41,6 +41,7 @@ const ContactForm = () => {
             name: values.name.trim(),
             number: values.number.trim(),
           };
+          
           dispatch(addContact(newContact));
           resetForm();
         }}
