@@ -2,7 +2,7 @@ import React from 'react';
 import Contact from './Contact';
 import { UserRound } from 'lucide-react';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, onDelete }) => {
   if (contacts.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -21,6 +21,7 @@ const ContactList = ({ contacts }) => {
           <Contact
             key={contact.id}
             contact={contact}
+            onDelete={onDelete}
           />
         ))}
       </ul>
