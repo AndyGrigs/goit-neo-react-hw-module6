@@ -1,7 +1,7 @@
 import React from "react";
 import { Search } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, selectFilter } from "../store/filterSlice";
+import { changeFilter, selectFilter } from "../redux/filterSlice";
 
 const SearchBox = () => {
   const dispatch = useDispatch();

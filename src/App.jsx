@@ -4,8 +4,8 @@ import SearchBox from "./components/SearchBox";
 import ContactList from "./components/ContactList";
 import { BookOpen } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, selectContacts } from "./store/contactsSlice";
-import { selectFilter } from "./store/filterSlice";
+import { deleteContact, selectContacts } from "./redux/contactsSlice";
+import { selectFilter } from "./redux/filterSlice";
 
 function App() {
   const contacts = useSelector(selectContacts);

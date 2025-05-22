@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact, selectContacts } from "../store/contactsSlice";
+import { addContact, selectContacts } from "../redux/contactsSlice";
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -26,9 +26,10 @@ const ContactForm = () => {
       <Formik
         initialValues={{ name: "", number: "" }}
         validationSchema={validationSchema}
-            onSubmit={(values, { resetForm }) => {
+        onSubmit={(values, { resetForm }) => {
           const isExisting = contacts.some(
-            (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
+            (contact) =>
+              contact.name.toLowerCase() === values.name.toLowerCase()
           );
 
           if (isExisting) {
@@ -41,7 +42,7 @@ const ContactForm = () => {
             name: values.name.trim(),
             number: values.number.trim(),
           };
-          
+
           dispatch(addContact(newContact));
           resetForm();
         }}
