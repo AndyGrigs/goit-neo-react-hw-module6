@@ -1,9 +1,12 @@
 
+import { useSelector } from "react-redux";
 import Contact from "./Contact";
 import { UserRound } from "lucide-react";
+import { selectContacts } from "../redux/contactsSlice";
 
 
-const ContactList = ({contacts}) => {
+const ContactList = () => {
+  const contacts = useSelector(selectContacts);
 
   if (contacts.length === 0) {
     return (

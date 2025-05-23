@@ -38,10 +38,7 @@ function App() {
 
         <ContactForm />
         <SearchBox />
-        <ContactList
-          contacts={filteredContacts}
-          onDelete={handleDeleteContact}
-        />
+        <ContactList />
       </div>
     </div>
   );
