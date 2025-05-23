@@ -1,8 +1,10 @@
-import React from 'react';
-import Contact from './Contact';
-import { UserRound } from 'lucide-react';
 
-const ContactList = ({ contacts, onDelete }) => {
+import Contact from "./Contact";
+import { UserRound } from "lucide-react";
+
+
+const ContactList = ({contacts}) => {
+
   if (contacts.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
@@ -18,11 +20,7 @@ const ContactList = ({ contacts, onDelete }) => {
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <ul className="divide-y divide-gray-200">
         {contacts.map((contact) => (
-          <Contact
-            key={contact.id}
-            contact={contact}
-            onDelete={onDelete}
-          />
+          <Contact key={contact.id} contact={contact} />
         ))}
       </ul>
     </div>

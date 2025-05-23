@@ -1,7 +1,11 @@
 import React from "react";
 import { Phone, Trash2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../redux/contactsSlice";
 
-const Contact = ({ contact, onDelete }) => {
+const Contact = ({ contact }) => {
+  const dispatch = useDispatch();
+
   return (
     <li className="p-4 border-b border-gray-200 last:border-b-0 group hover:bg-gray-50 transition-colors duration-200">
       <div className="flex justify-between items-center">
@@ -22,7 +26,7 @@ const Contact = ({ contact, onDelete }) => {
           </div>
         </div>
         <button
-        onClick={()=> onDelete(contact.id)}
+          onClick={() => dispatch(deleteContact(contact.id))}
           className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
           aria-label={`Delete ${contact.name}`}
         >
