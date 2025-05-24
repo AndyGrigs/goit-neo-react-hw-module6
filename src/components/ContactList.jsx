@@ -1,14 +1,22 @@
 
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import Contact from "./Contact";
 import { UserRound } from "lucide-react";
 import { selectContacts } from "../redux/contactsSlice";
+import { selectFilter } from '../redux/filterSlice';
 
 
 const ContactList = () => {
+ 
+  const filter = useSelector(selectFilter);
+
   const contacts = useSelector(selectContacts);
 
-  if (contacts.length === 0) {
+  const normalizedFilter = filter.toLowerCase();
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizedFilter)
+  );
+  if (filteredContacts.length === 0) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6 text-center">
         <div className="flex justify-center">
@@ -22,7 +30,7 @@ const ContactList = () => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       <ul className="divide-y divide-gray-200">
-        {contacts.map((contact) => (
+        {filteredContacts.map((contact) => (
           <Contact key={contact.id} contact={contact} />
         ))}
       </ul>

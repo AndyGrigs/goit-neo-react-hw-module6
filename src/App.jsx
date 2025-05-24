@@ -3,27 +3,12 @@ import ContactForm from "./components/ContactForm";
 import SearchBox from "./components/SearchBox";
 import ContactList from "./components/ContactList";
 import { BookOpen } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, selectContacts } from "./redux/contactsSlice";
-import { selectFilter } from "./redux/filterSlice";
+
 
 function App() {
-  const contacts = useSelector(selectContacts);
-  const filter = useSelector(selectFilter);
-  const dispatch = useDispatch();
+ 
 
-  const getFilteredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
-  };
-
-  const filteredContacts = getFilteredContacts();
+  
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6">
       <div className="max-w-md mx-auto">
